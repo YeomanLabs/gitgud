@@ -1,0 +1,14 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Screenshot handoff</title>
+<script>
+// Temporary: hands the App Store screenshots to the App Store Connect page that frames this one.
+(async () => {
+  const target = "https://appstoreconnect.apple.com";
+  for (const name of ["1-bonfire.png", "2-workout.png", "3-character.png", "4-flask.png", "5-label.png"]) {
+    const buffer = await (await fetch(name)).arrayBuffer();
+    parent.postMessage({ name, buffer }, target, [buffer]);
+  }
+  parent.postMessage({ done: true }, target);
+})();
+</script>
